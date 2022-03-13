@@ -15,4 +15,9 @@ class Surat extends Model
     {
         return $this->belongsTo(Pegawai::class);
     }
+
+    public function pengikut()
+    {
+        return $this->hasMany(Pengikut::class);
+    }
 }

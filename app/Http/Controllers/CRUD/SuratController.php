@@ -115,6 +115,7 @@ class SuratController extends Controller
                 function ($data) {
                     return '<button type="button" class="btn btn-warning btnUbah btn-sm" data-id="' . $data->id . '">Ubah</button>
                     <button type="button" data-id="' . $data->id . '" class="btn btn-danger btnHapus btn-sm">Delete</button>
+                    <a href="/cetak/surat_spt/' . $data->id . '" target="blank" class="btn btn-info btn-sm">Cetak</a>
                     ';
                 }
             )
