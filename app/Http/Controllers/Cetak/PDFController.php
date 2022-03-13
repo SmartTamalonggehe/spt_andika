@@ -27,4 +27,12 @@ class PDFController extends Controller
         $pdf = PDF::loadView('admin.surat.cetak_spt', compact('surat', 'pengikut'));
         return $pdf->stream("Surat {$surat->jenis_surat} {$surat->tgl_surat}.pdf");
     }
+    public function surat_sppd($id)
+    {
+        $surat = Surat::with('pegawai', 'pengikut')->find($id);
+        $pengikut = Pengikut::where('surat_id', $id)->with('pegawai')->get();
+        // return view('admin.surat.cetak_sppd', compact('surat', 'pengikut'));
+        $pdf = PDF::loadView('admin.surat.cetak_sppd', compact('surat', 'pengikut'));
+        return $pdf->stream("Surat {$surat->jenis_surat} {$surat->tgl_surat}.pdf");
+    }
 }
