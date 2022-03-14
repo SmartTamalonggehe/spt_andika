@@ -83,6 +83,7 @@ function dataForm(data) {
         $("#kode_rek").val(data.kode_rek);
         $("#tgl_kwitansi").val(data.tgl_kwitansi);
         $("#terima").val(data.terima);
+        $("#tgl_terima").val(data.tgl_terima);
         $("#banyak").val(data.banyak);
         $("#terbilang").val(data.terbilang);
         $("#pergi").val(data.pergi);
@@ -95,7 +96,6 @@ function dataForm(data) {
     if (tools.route === "kwitansiDetail") {
         $("#id").val(data.id);
         $("#kwitansi_id").val(data.kwitansi_id);
-        $("#jenis").val(data.jenis);
         $("#uraian").val(data.uraian);
         $("#lama").val(data.lama);
         $("#jumlah").val(data.jumlah);

@@ -15,4 +15,8 @@ class Kwitansi extends Model
     {
         return $this->belongsTo(Surat::class);
     }
+    public function kwitansiDetail()
+    {
+        return $this->hasMany(KwitansiDetail::class);
+    }
 }

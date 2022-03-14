@@ -19,7 +19,6 @@ class CreateKwitansiDetailTable extends Migration
                 ->constrained('kwitansi')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('jenis', 20)->nullable();
             $table->string('uraian', 100);
             $table->integer('lama');
             $table->integer('jumlah');

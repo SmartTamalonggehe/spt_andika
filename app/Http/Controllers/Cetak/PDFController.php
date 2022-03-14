@@ -7,6 +7,7 @@ use App\Models\Gaji;
 use App\Models\Surat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Kwitansi;
 use App\Models\Pengikut;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
@@ -34,5 +35,13 @@ class PDFController extends Controller
         // return view('admin.surat.cetak_sppd', compact('surat', 'pengikut'));
         $pdf = PDF::loadView('admin.surat.cetak_sppd', compact('surat', 'pengikut'));
         return $pdf->stream("Surat {$surat->jenis_surat} {$surat->tgl_surat}.pdf");
+    }
+    public function kwitansi($id)
+    {
+        $kwitansi = Kwitansi::with('kwitansiDetail', 'surat')->find($id);
+        $surat = Surat::with('pegawai')->find($kwitansi->surat_id);
+        // return view('admin.kwitansi.cetak', compact('kwitansi', 'surat'));s
+        $pdf = PDF::loadView('admin.kwitansi.cetak', compact('kwitansi', 'surat'));
+        return $pdf->stream("Kwitansi {$kwitansi->tgl_kwitansi}.pdf");
     }
 }

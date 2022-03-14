@@ -13,16 +13,7 @@
                          {{-- gaji id --}}
                          <input type="hidden" name="kwitansi_id" id="kwitansi_id" value="{{ $id }}">
 
-                         <div class="col-12 col-md-4">
-                             <div class="mb-3">
-                                 <label for="jenis" class="form-label">Jenis Rincian</label>
-                                 <input type="text" class="form-control inputReset" name="jenis" id="jenis">
-                                 <div class="invalid-feedback">
-                                     Data Tidak Boleh Kosong
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="col-12 col-md-8">
+                         <div class="col-12">
                              <div class="mb-3">
                                  <label for="uraian" class="form-label">Uraian</label>
                                  <input type="text" class="form-control inputReset" name="uraian" id="uraian" required>
@@ -31,7 +22,7 @@
                                  </div>
                              </div>
                          </div>
-                         <div class="col-12 col-md-3">
+                         <div class="col-12 col-lg-3">
                              <div class="mb-3">
                                  <label for="lama" class="form-label">Lama</label>
                                  <input type="number" class="form-control inputReset" name="lama" id="lama" required>
@@ -40,7 +31,7 @@
                                  </div>
                              </div>
                          </div>
-                         <div class="col-12 col-md-9">
+                         <div class="col-12 col-lg-9">
                              <div class="mb-3">
                                  <label for="jumlah" class="form-label">Jumlah</label>
                                  <input id="jumlah" name="jumlah" type="text" class="form-control currency inputReset"

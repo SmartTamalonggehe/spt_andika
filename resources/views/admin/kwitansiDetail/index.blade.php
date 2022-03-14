@@ -40,7 +40,6 @@ $folder = 'kwitansiDetail';
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Jenis</th>
                     <th>Uraian</th>
                     <th>Lama</th>
                     <th>Jumlah</th>
@@ -101,9 +100,6 @@ $folder = 'kwitansiDetail';
                         data: 'DT_RowIndex',
                         orderable: false,
                         searchable: false
-                    },
-                    {
-                        data: 'jenis',
                     },
                     {
                         data: 'uraian',

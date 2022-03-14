@@ -29,7 +29,6 @@ class SuratController extends Controller
             'tgl_kembali' => 'required',
             'beban_anggaran' => 'required',
             'mata_anggaran' => 'required',
-            'keterangan' => 'required',
         ]);
 
         if ($validator->fails()) {

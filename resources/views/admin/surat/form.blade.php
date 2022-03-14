@@ -122,7 +122,7 @@
                              <div class="mb-3">
                                  <label for="tgl_kembali" class="form-label">Tgl. Kembali</label>
                                  <input id="tgl_kembali" name="tgl_kembali" class="form-control inputReset" type="text"
-                                     required">
+                                     required>
                                  <div class="invalid-feedback">
                                      Data Tidak Boleh Kosong
                                  </div>
@@ -151,8 +151,7 @@
                          <div class="col-12">
                              <div class="mb-3">
                                  <label for="keterangan" class="form-label">Keterangan</label>
-                                 <input id="keterangan" name="keterangan" class="form-control inputReset" value="-"
-                                     required>
+                                 <input id="keterangan" name="keterangan" class="form-control inputReset" value="-">
                                  <div class="invalid-feedback">
                                      Data Tidak Boleh Kosong
                                  </div>

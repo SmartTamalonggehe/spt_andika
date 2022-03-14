@@ -32,7 +32,7 @@ class CreateSuratTable extends Migration
             $table->string('tgl_kembali', 50);
             $table->string('beban_anggaran', 100);
             $table->string('mata_anggaran', 50);
-            $table->string('keterangan', 200);
+            $table->string('keterangan', 200)->nullable();
             $table->timestamps();
         });
     }

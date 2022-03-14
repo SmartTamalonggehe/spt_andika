@@ -39,9 +39,10 @@ $folder = 'kwitansi';
                     <th>No. SPT</th>
                     <th>Tgl Kwitansi</th>
                     <th>Kode Rek</th>
-                    <th>Terima</th>
-                    <th>Banyak</th>
-                    <th>Terbilang</th>
+                    <th>Jumlah Ditetapkan</th>
+                    <th>Terima Dari</th>
+                    <th>Tgl. Terima</th>
+                    <th>Jumlah Terima</th>
                     <th>Tiket Pergi</th>
                     <th>Tiket Pulang</th>
                     <th>Aksi</th>
@@ -111,13 +112,16 @@ $folder = 'kwitansi';
                         data: 'kode_rek',
                     },
                     {
+                        data: 'jumlah_ditetapkan',
+                    },
+                    {
                         data: 'terima',
                     },
                     {
-                        data: 'banyak',
+                        data: 'tgl_terima',
                     },
                     {
-                        data: 'terbilang',
+                        data: 'jumlah_terima',
                     },
                     {
                         data: 'pergi',

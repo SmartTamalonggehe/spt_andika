@@ -21,9 +21,10 @@ class CreateKwitansiTable extends Migration
                 ->onDelete('cascade');
             $table->string('kode_rek', 20);
             $table->date('tgl_kwitansi');
+            $table->integer('jumlah_ditetapkan');
             $table->string('terima', 50);
-            $table->integer('banyak');
-            $table->string('terbilang', 50);
+            $table->date('tgl_terima');
+            $table->integer('jumlah_terima');
             $table->integer('pergi');
             $table->integer('pulang');
             $table->timestamps();

@@ -18,9 +18,10 @@ class KwitansiController extends Controller
             'surat_id' => 'required',
             'kode_rek' => 'required',
             'tgl_kwitansi' => 'required',
+            'jumlah_ditetapkan' => 'required',
             'terima' => 'required',
-            'banyak' => 'required',
-            'terbilang' => 'required',
+            'tgl_terima' => 'required',
+            'jumlah_terima' => 'required',
             'pergi' => 'required',
             'pulang' => 'required',
         ]);
@@ -44,8 +45,12 @@ class KwitansiController extends Controller
         $data = Kwitansi::with('surat')->get();
         return DataTables::of($data)
             ->addIndexColumn()
-            ->editColumn('banyak', function ($data) {
-                $currecy = 'Rp. ' . number_format($data->banyak, 0, '.', ',');
+            ->editColumn('jumlah_ditetapkan', function ($data) {
+                $currecy = 'Rp. ' . number_format($data->jumlah_ditetapkan, 0, '.', ',');
+                return $currecy;
+            })
+            ->editColumn('jumlah_terima', function ($data) {
+                $currecy = 'Rp. ' . number_format($data->jumlah_terima, 0, '.', ',');
                 return $currecy;
             })
             ->editColumn('pergi', function ($data) {
@@ -60,6 +65,10 @@ class KwitansiController extends Controller
                 $formatedDate = Carbon::createFromFormat('Y-m-d', $data->tgl_kwitansi)->format('d M Y');
                 return $formatedDate;
             })
+            ->editColumn('tgl_terima', function ($data) {
+                $formatedDate = Carbon::createFromFormat('Y-m-d', $data->tgl_kwitansi)->format('d M Y');
+                return $formatedDate;
+            })
             ->addColumn(
                 'action',
                 function ($data) {
@@ -67,6 +76,7 @@ class KwitansiController extends Controller
                     <a href="/admin/kwitansiDetail/' . $data->id . '" class="btn btn-secondary btn-sm">Rincian</a>
                     <button type="button" class="btn btn-warning btnUbah btn-sm" data-id="' . $data->id . '">Ubah</button>
                     <button type="button" data-id="' . $data->id . '" class="btn btn-danger btnHapus btn-sm">Delete</button>
+                    <a href="/cetak/kwitansi/' . $data->id . '" target="blank" class="btn btn-info btn-sm">Cetak</a>
                     ';
                 }
             )
@@ -94,7 +104,9 @@ class KwitansiController extends Controller
     {
         $data = $request->all();
         $data['tgl_kwitansi'] = Carbon::parse($request->tgl_kwitansi)->format('Y-m-d');
-        $data['banyak'] = Str::remove([',', 'Rp.', ' '], $request->banyak);
+        $data['tgl_terima'] = Carbon::parse($request->tgl_terima)->format('Y-m-d');
+        $data['jumlah_ditetapkan'] = Str::remove([',', 'Rp.', ' '], $request->jumlah_ditetapkan);
+        $data['jumlah_terima'] = Str::remove([',', 'Rp.', ' '], $request->jumlah_terima);
         $data['pergi'] = Str::remove([',', 'Rp.', ' '], $request->pergi);
         $data['pulang'] = Str::remove([',', 'Rp.', ' '], $request->pulang);
 
@@ -133,6 +145,7 @@ class KwitansiController extends Controller
     {
         $data = Kwitansi::findOrFail($id);
         $data->tgl_kwitansi = Carbon::parse($data->tgl_kwitansi)->format('d M Y');
+        $data->tgl_terima = Carbon::parse($data->tgl_terima)->format('d M Y');
         return response()->json($data);
     }
 
@@ -147,7 +160,9 @@ class KwitansiController extends Controller
     {
         $data = $request->all();
         $data['tgl_kwitansi'] = Carbon::parse($request->tgl_kwitansi)->format('Y-m-d');
-        $data['banyak'] = Str::remove([',', 'Rp.', ' '], $request->banyak);
+        $data['tgl_terima'] = Carbon::parse($request->tgl_terima)->format('Y-m-d');
+        $data['jumlah_ditetapkan'] = Str::remove([',', 'Rp.', ' '], $request->jumlah_ditetapkan);
+        $data['jumlah_terima'] = Str::remove([',', 'Rp.', ' '], $request->jumlah_terima);
         $data['pergi'] = Str::remove([',', 'Rp.', ' '], $request->pergi);
         $data['pulang'] = Str::remove([',', 'Rp.', ' '], $request->pulang);
 
