@@ -25,12 +25,15 @@ $folder = 'potongan';
 @endsection
 
 @section('btn_tambah')
-    <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
+    @hasrole('admin')
+        <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
+    @endhasrole
 @endsection
 
 @section('content')
     <div id="route" style="display: none"><?= $folder ?></div>
     <div id="gaji_id" style="display: none">{{ $gaji->id }}</div>
+    <div id="role" style="display: none">{{ auth()->user()->roles[0]->name }}</div>
     <div class="col-12">
         <h5 class="mb-sm-0 mb-md-3">{{ $gaji->pegawai->NIP }} - {{ $gaji->pegawai->nama }}</h5>
         <p>
@@ -44,7 +47,9 @@ $folder = 'potongan';
                     <th>No</th>
                     <th>Potongan</th>
                     <th>Jml. Potongan</th>
-                    <th>Aksi</th>
+                    @hasrole('admin')
+                        <th>Aksi</th>
+                    @endhasrole
                 </tr>
             </thead>
         </table>
@@ -80,6 +85,26 @@ $folder = 'potongan';
     <script>
         const gaji_id = document.getElementById('gaji_id').innerHTML;
         $(document).ready(function() {
+            let columns = [{
+                    data: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'nm_potongan',
+                },
+                {
+                    data: 'jml_potongan',
+                }
+            ];
+            const role = document.getElementById('role').innerHTML
+            if (role == 'admin') {
+                columns.push({
+                    data: 'action',
+                    orderable: false,
+                    searchable: false
+                })
+            }
             $("#my_table").DataTable({
                 scrollX: true,
                 language: {
@@ -97,23 +122,7 @@ $folder = 'potongan';
                     [1, 'asc']
                 ],
                 ajax: `/crud/${route.textContent}/${gaji_id}/`,
-                columns: [{
-                        data: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'nm_potongan',
-                    },
-                    {
-                        data: 'jml_potongan',
-                    },
-                    {
-                        data: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
+                columns
             });
         });
     </script>

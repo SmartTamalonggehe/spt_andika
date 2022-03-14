@@ -20,11 +20,14 @@ $folder = 'pegawai';
 @endsection
 
 @section('btn_tambah')
-    <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
+    @hasrole('admin')
+        <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
+    @endhasrole
 @endsection
 
 @section('content')
     <div id="route" style="display: none"><?= $folder ?></div>
+    <div id="role" style="display: none">{{ auth()->user()->roles[0]->name }}</div>
     <div class="col-12">
         <p>
             Silahkan mengubah, menghapus, atau menambahkan data pegawai.
@@ -42,7 +45,9 @@ $folder = 'pegawai';
                     <th>Golongan</th>
                     <th>Instansi</th>
                     <th>Tingkat</th>
-                    <th>Aksi</th>
+                    @hasrole('admin')
+                        <th>Aksi</th>
+                    @endhasrole
                 </tr>
             </thead>
         </table>
@@ -62,6 +67,45 @@ $folder = 'pegawai';
 
     <script>
         $(document).ready(function() {
+            let columns = [{
+                    data: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'NIP',
+                },
+                {
+                    data: 'nama',
+                },
+                {
+                    data: 'bidang',
+                },
+                {
+                    data: 'bagian',
+                },
+                {
+                    data: 'jabatan',
+                },
+                {
+                    data: 'instansi',
+                },
+                {
+                    data: 'golongan',
+                },
+                {
+                    data: 'tingkat',
+                }
+            ]
+            const role = document.getElementById('role').innerHTML
+            if (role == 'admin') {
+                columns.push({
+                    data: 'action',
+                    orderable: false,
+                    searchable: false
+                })
+            }
+
             $("#my_table").DataTable({
                 scrollX: true,
                 language: {
@@ -79,41 +123,7 @@ $folder = 'pegawai';
                     [1, 'asc']
                 ],
                 ajax: `/crud/${route.textContent}`,
-                columns: [{
-                        data: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'NIP',
-                    },
-                    {
-                        data: 'nama',
-                    },
-                    {
-                        data: 'bidang',
-                    },
-                    {
-                        data: 'bagian',
-                    },
-                    {
-                        data: 'jabatan',
-                    },
-                    {
-                        data: 'instansi',
-                    },
-                    {
-                        data: 'golongan',
-                    },
-                    {
-                        data: 'tingkat',
-                    },
-                    {
-                        data: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
+                columns
             });
         });
     </script>

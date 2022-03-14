@@ -8,7 +8,12 @@
                 <img src="{{ asset('assets/images/logo/papua-1.png') }}" alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
-                <h4 class="font-size-16 mb-1">Admin</h4>
+                @hasrole('admin')
+                    <h4 class="font-size-16 mb-1">Admin</h4>
+                @else
+                    <h4 class="font-size-16 mb-1">Ketua</h4>
+                @endhasrole
+
             </div>
         </div>
 

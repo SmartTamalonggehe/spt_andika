@@ -25,12 +25,15 @@ $folder = 'kwitansiDetail';
 @endsection
 
 @section('btn_tambah')
-    <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
+    @hasrole('admin')
+        <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
+    @endhasrole
 @endsection
 
 @section('content')
     <div id="route" style="display: none"><?= $folder ?></div>
     <div id="kwitansi_id" style="display: none">{{ $id }}</div>
+    <div id="role" style="display: none">{{ auth()->user()->roles[0]->name }}</div>
     <div class="col-12">
         <p>
             Silahkan mengubah, menghapus, atau menambahkan data rincian kwitansi.
@@ -43,7 +46,9 @@ $folder = 'kwitansiDetail';
                     <th>Uraian</th>
                     <th>Lama</th>
                     <th>Jumlah</th>
-                    <th>Aksi</th>
+                    @hasrole('admin')
+                        <th>Aksi</th>
+                    @endhasrole
                 </tr>
             </thead>
         </table>
@@ -79,6 +84,29 @@ $folder = 'kwitansiDetail';
     <script>
         const kwitansi_id = document.getElementById('kwitansi_id').innerHTML;
         $(document).ready(function() {
+            let columns = [{
+                    data: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'uraian',
+                },
+                {
+                    data: 'lama',
+                },
+                {
+                    data: 'jumlah',
+                }
+            ]
+            const role = document.getElementById('role').innerHTML
+            if (role == 'admin') {
+                columns.push({
+                    data: 'action',
+                    orderable: false,
+                    searchable: false
+                })
+            }
             $("#my_table").DataTable({
                 scrollX: true,
                 language: {
@@ -96,26 +124,7 @@ $folder = 'kwitansiDetail';
                     [1, 'asc']
                 ],
                 ajax: `/crud/${route.textContent}?kwitansi_id=${kwitansi_id}`,
-                columns: [{
-                        data: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'uraian',
-                    },
-                    {
-                        data: 'lama',
-                    },
-                    {
-                        data: 'jumlah',
-                    },
-                    {
-                        data: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
+                columns
             });
         });
     </script>

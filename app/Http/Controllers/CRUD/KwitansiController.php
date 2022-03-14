@@ -72,12 +72,16 @@ class KwitansiController extends Controller
             ->addColumn(
                 'action',
                 function ($data) {
-                    return '
-                    <a href="/admin/kwitansiDetail/' . $data->id . '" class="btn btn-secondary btn-sm">Rincian</a>
-                    <button type="button" class="btn btn-warning btnUbah btn-sm" data-id="' . $data->id . '">Ubah</button>
-                    <button type="button" data-id="' . $data->id . '" class="btn btn-danger btnHapus btn-sm">Delete</button>
-                    <a href="/cetak/kwitansi/' . $data->id . '" target="blank" class="btn btn-info btn-sm">Cetak</a>
-                    ';
+                    $cetak = '<a href="/cetak/kwitansi/' . $data->id . '" target="blank" class="btn btn-info btn-sm ms-1">Cetak</a> <a href="/admin/kwitansiDetail/' . $data->id . '" class="btn btn-secondary btn-sm">Rincian</a>';
+                    $btn = "";
+                    if (auth()->user()->roles[0]->name == 'admin') {
+                        $btn = '<button type="button" class="btn btn-warning btnUbah btn-sm" data-id="' . $data->id . '">Ubah</button>
+                        <button type="button" data-id="' . $data->id . '" class="btn btn-danger btnHapus btn-sm">Delete</button>' . $cetak;
+                    } else {
+                        $btn = $cetak;
+                    }
+
+                    return $btn;
                 }
             )
             ->rawColumns(['action'])
