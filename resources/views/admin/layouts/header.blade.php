@@ -21,8 +21,9 @@
              </div>
 
              <div class="dropdown d-inline-block user-dropdown">
-                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <button type="button" onclick="event.preventDefault(); $('#logout-form').submit()"
+                     class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
                      <i class="ri-shut-down-line"></i>
 
                      <span class="d-none d-xl-inline-block ms-1">Logout</span>
@@ -31,4 +32,7 @@
 
          </div>
      </div>
+     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+         @csrf
+     </form>
  </header>

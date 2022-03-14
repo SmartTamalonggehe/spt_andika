@@ -5,7 +5,7 @@ use App\Models\Surat;
 use App\Models\Pegawai;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     $nm = 'admin';
     $pegawai = Pegawai::orderBy('nama')->get();
     Route::get('/dashboard', function () {
