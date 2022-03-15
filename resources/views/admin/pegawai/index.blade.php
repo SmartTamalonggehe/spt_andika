@@ -88,10 +88,10 @@ $folder = 'pegawai';
                     data: 'jabatan',
                 },
                 {
-                    data: 'instansi',
+                    data: 'golongan',
                 },
                 {
-                    data: 'golongan',
+                    data: 'instansi',
                 },
                 {
                     data: 'tingkat',
