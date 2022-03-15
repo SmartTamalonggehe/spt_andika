@@ -91,9 +91,23 @@ class SuratController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        $data = Surat::where('jenis_surat', $id)->with('pegawai')->get();
+        $tgl_awal = "1990-01-01";
+        $tgl_akhir = Carbon::now();
+
+
+        if (count($request->all()) > 0) {
+            $tgl_awal = Carbon::parse($request->tgl_awal)->format('Y-m-d');
+            $tgl_akhir = Carbon::parse($request->tgl_akhir)->format('Y-m-d');
+        }
+
+        // return $tgl_awal;
+
+        $data = Surat::where('jenis_surat', $id)
+            ->whereDate('tgl_surat', '>=', $tgl_awal)
+            ->whereDate('tgl_surat', '<=', $tgl_akhir)
+            ->with('pegawai')->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('lama', function ($data) {

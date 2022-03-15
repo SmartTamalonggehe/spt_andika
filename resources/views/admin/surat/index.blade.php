@@ -34,6 +34,24 @@ $folder = 'surat';
         <p>
             Silahkan mengubah, menghapus, atau menambahkan data surat {{ $jenis }}.
         </p>
+        {{-- <form action="" method="get">
+            <div class="row mb-4">
+                <p>
+                    Tampilkan data berdasarkan tanggal:
+                </p>
+                <div class="col-8">
+                    <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M yyyy"
+                        data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
+                        <input type="text" class="form-control" name="start" placeholder="Tanggal Awal" />
+                        <input type="text" class="form-control" name="end" placeholder="Tanggal Akhir" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-secondary">Tampilkan</button>
+                </div>
+            </div>
+        </form> --}}
+
         <table id="my_table" class="table dt-responsive nowrap"
             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
             <thead>
