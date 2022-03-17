@@ -39,9 +39,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.pengikut.index', compact('id', 'pegawai'));
     })->name("$nm.pengikut");
 
-    Route::get('/kwitansi', function () {
+    Route::get('/kwitansi', function (Request $request) {
         $surat = Surat::orderByDesc('tgl_surat')->where('jenis_surat', 'SPT')->get();
-        return view('admin.kwitansi.index', compact('surat'));
+        return view('admin.kwitansi.index', compact('surat', 'request'));
     })->name("$nm.kwitansi");
 
     Route::get('/kwitansiDetail/{id}', function ($id, Request $request) {

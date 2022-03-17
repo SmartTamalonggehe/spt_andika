@@ -29,10 +29,29 @@ $folder = 'kwitansi';
 
 @section('content')
     <div id="route" style="display: none"><?= $folder ?></div>
+    <div id="tgl_awal" style="display: none">{{ $request->tgl_awal }}</div>
+    <div id="tgl_akhir" style="display: none">{{ $request->tgl_akhir }}</div>
     <div class="col-12">
         <p>
             Silahkan mengubah, menghapus, atau menambahkan data gaji.
         </p>
+        <form action="" method="get">
+            <div class="row mb-4">
+                <p>
+                    Tampilkan data berdasarkan tanggal:
+                </p>
+                <div class="col-8">
+                    <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M yyyy"
+                        data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
+                        <input type="text" class="form-control" name="tgl_awal" placeholder="Tanggal Awal" />
+                        <input type="text" class="form-control" name="tgl_akhir" placeholder="Tanggal Akhir" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-secondary">Tampilkan</button>
+                </div>
+            </div>
+        </form>
         <table id="my_table" class="table dt-responsive nowrap"
             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
             <thead>
@@ -98,7 +117,7 @@ $folder = 'kwitansi';
                 order: [
                     [1, 'asc']
                 ],
-                ajax: `/crud/${route.textContent}`,
+                ajax: `/crud/${route.textContent}?tgl_awal=${document.getElementById('tgl_awal').innerHTML}&&tgl_akhir=${document.getElementById('tgl_akhir').innerHTML}`,
                 columns: [{
                         data: 'DT_RowIndex',
                         orderable: false,

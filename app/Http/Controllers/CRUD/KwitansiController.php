@@ -40,9 +40,20 @@ class KwitansiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Kwitansi::with('surat')->get();
+        $tgl_awal = "1990-01-01";
+        $tgl_akhir = Carbon::now();
+
+        if ($request->tgl_awal != "" || $request->$tgl_akhir != "") {
+            $tgl_awal = Carbon::parse($request->tgl_awal)->format('Y-m-d');
+            $tgl_akhir = Carbon::parse($request->tgl_akhir)->format('Y-m-d');
+        }
+
+        $data = Kwitansi::with('surat')
+            ->whereDate('tgl_kwitansi', '>=', $tgl_awal)
+            ->whereDate('tgl_kwitansi', '<=', $tgl_akhir)->get();
+
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('jumlah_ditetapkan', function ($data) {
