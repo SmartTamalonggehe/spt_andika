@@ -3,6 +3,7 @@
 use App\Models\Gaji;
 use App\Models\Surat;
 use App\Models\Pegawai;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
@@ -30,8 +31,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.potongan.index', compact('gaji'));
     })->name("$nm.potongan");
 
-    Route::get('/surat/{jenis}', function ($jenis) use ($pegawai) {
-        return view('admin.surat.index', compact('jenis', 'pegawai'));
+    Route::get('/surat/{jenis}', function ($jenis, Request $request) use ($pegawai) {
+        return view('admin.surat.index', compact('jenis', 'pegawai', 'request'));
     })->name("$nm.surat");
 
     Route::get('/pengikut/{id}', function ($id) use ($pegawai) {
@@ -43,7 +44,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.kwitansi.index', compact('surat'));
     })->name("$nm.kwitansi");
 
-    Route::get('/kwitansiDetail/{id}', function ($id) {
-        return view('admin.kwitansiDetail.index', compact('id'));
+    Route::get('/kwitansiDetail/{id}', function ($id, Request $request) {
+        return view('admin.kwitansiDetail.index', compact('id', 'request'));
     })->name("$nm.kwitansiDetail");
 });

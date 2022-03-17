@@ -45,9 +45,66 @@ class SuratController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $tgl_awal = "1990-01-01";
+        $tgl_akhir = Carbon::now();
+
+        if ($request->tgl_awal != "" || $request->$tgl_akhir != "") {
+            $tgl_awal = Carbon::parse($request->tgl_awal)->format('Y-m-d');
+            $tgl_akhir = Carbon::parse($request->tgl_akhir)->format('Y-m-d');
+        }
+
+
+        // if (count($request->all()) > 0) {
+        //     $tgl_awal = Carbon::parse($request->tgl_awal)->format('Y-m-d');
+        //     $tgl_akhir = Carbon::parse($request->tgl_akhir)->format('Y-m-d');
+        // }
+
+        // return $tgl_awal;
+
+        $data = Surat::where('jenis_surat', $request->id)
+            ->whereDate('tgl_surat', '>=', $tgl_awal)
+            ->whereDate('tgl_surat', '<=', $tgl_akhir)
+            ->with('pegawai')->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->editColumn('lama', function ($data) {
+                return $data->lama . ' Hari';
+            })
+            ->editColumn('tgl_surat', function ($data) {
+                $formatedDate = Carbon::createFromFormat('Y-m-d', $data->tgl_surat)->format('d M Y');
+                return $formatedDate;
+            })
+            ->addColumn(
+                'pengikut',
+                function ($data) {
+                    return '<a href="/admin/pengikut/' . $data->id . '" class="btn btn-secondary btn-sm">Lihat</a>';
+                }
+            )
+            ->addColumn(
+                'action',
+                function ($data) {
+                    $link = "";
+                    if ($data->jenis_surat == 'SPT') {
+                        $link = "surat_spt";
+                    } else {
+                        $link = "surat_sppd";
+                    };
+                    $cetak = '<a href="/cetak/' . $link . '/' . $data->id . '" target="blank" class="btn btn-info btn-sm ms-1">Cetak</a>';
+                    $btn = "";
+                    if (auth()->user()->roles[0]->name == 'admin') {
+                        $btn = '<button type="button" class="btn btn-warning btnUbah btn-sm" data-id="' . $data->id . '">Ubah</button>
+                        <button type="button" data-id="' . $data->id . '" class="btn btn-danger btnHapus btn-sm">Delete</button>' . $cetak;
+                    } else {
+                        $btn = $cetak;
+                    }
+
+                    return $btn;
+                }
+            )
+            ->rawColumns(['pengikut', 'action'])
+            ->make(true);
     }
 
     /**
@@ -93,59 +150,6 @@ class SuratController extends Controller
      */
     public function show($id, Request $request)
     {
-        $tgl_awal = "1990-01-01";
-        $tgl_akhir = Carbon::now();
-
-
-        if (count($request->all()) > 0) {
-            $tgl_awal = Carbon::parse($request->tgl_awal)->format('Y-m-d');
-            $tgl_akhir = Carbon::parse($request->tgl_akhir)->format('Y-m-d');
-        }
-
-        // return $tgl_awal;
-
-        $data = Surat::where('jenis_surat', $id)
-            ->whereDate('tgl_surat', '>=', $tgl_awal)
-            ->whereDate('tgl_surat', '<=', $tgl_akhir)
-            ->with('pegawai')->get();
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->editColumn('lama', function ($data) {
-                return $data->lama . ' Hari';
-            })
-            ->editColumn('tgl_surat', function ($data) {
-                $formatedDate = Carbon::createFromFormat('Y-m-d', $data->tgl_surat)->format('d M Y');
-                return $formatedDate;
-            })
-            ->addColumn(
-                'pengikut',
-                function ($data) {
-                    return '<a href="/admin/pengikut/' . $data->id . '" class="btn btn-secondary btn-sm">Lihat</a>';
-                }
-            )
-            ->addColumn(
-                'action',
-                function ($data) {
-                    $link = "";
-                    if ($data->jenis_surat == 'SPT') {
-                        $link = "surat_spt";
-                    } else {
-                        $link = "surat_sppd";
-                    };
-                    $cetak = '<a href="/cetak/' . $link . '/' . $data->id . '" target="blank" class="btn btn-info btn-sm ms-1">Cetak</a>';
-                    $btn = "";
-                    if (auth()->user()->roles[0]->name == 'admin') {
-                        $btn = '<button type="button" class="btn btn-warning btnUbah btn-sm" data-id="' . $data->id . '">Ubah</button>
-                        <button type="button" data-id="' . $data->id . '" class="btn btn-danger btnHapus btn-sm">Delete</button>' . $cetak;
-                    } else {
-                        $btn = $cetak;
-                    }
-
-                    return $btn;
-                }
-            )
-            ->rawColumns(['pengikut', 'action'])
-            ->make(true);
     }
 
     /**
