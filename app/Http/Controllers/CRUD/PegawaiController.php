@@ -140,7 +140,13 @@ class PegawaiController extends Controller
      */
     public function destroy($id)
     {
-        Pegawai::destroy($id);
+        $pegawai = Pegawai::find($id);
+        $user_id = $pegawai->user;
+        if ($user_id) {
+            (new AkunController)->destroy($user_id->id);
+        }
+
+        $pegawai->delete();
         $pesan = [
             'judul' => 'Berhasil',
             'pesan' => 'Data Telah Dihapus',

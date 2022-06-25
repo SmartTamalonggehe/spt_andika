@@ -22,7 +22,7 @@ $folder = 'gaji';
 @endsection
 
 @section('btn_tambah')
-    @hasrole('admin')
+    @hasrole('keuangan')
         <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
     @endhasrole
 @endsection

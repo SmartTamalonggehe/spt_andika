@@ -120,27 +120,13 @@ function dataForm(data) {
         $("#tombolForm").html("Ubah Data");
     }
 
-    // Jika route nilai alternatif
-    if (tools.route === "nilaiAlternatif") {
-        const gpAlternatif = data.reduce((r, a) => {
-            r[a.alternatif_id] = [...(r[a.alternatif_id] || []), a];
-            return r;
-        }, {});
-        // cari select alternatif
-        const selectAlt = document.getElementById("alternatif_id");
-        let isiId = [];
-        for (let i in gpAlternatif) {
-            const subKrit = gpAlternatif[i];
-            subKrit.forEach((el) => {
-                isiId.push(el.id);
-                const isiOption = `<option value="${el.alternatif.id}" selected>${el.alternatif.nm_alternatif}</option>`;
-                selectAlt.innerHTML = isiOption;
-                $(`#${el.sub_kriteria.kriteria_id}sub_kriteria_id`)
-                    .val(el.sub_kriteria_id)
-                    .trigger("change");
-            });
-        }
-        $("#id").val(isiId);
+    // Jika route akun
+    if (tools.route === "akun") {
+        $("#id").val(data.id);
+        $("#pegawai-id").val(data.pegawai_id).trigger("change");
+        $("#password").val(data.password_show);
+        $("#password_confirmation").val(data.password_show);
+        $("#email").val(data.email);
         $(".tampilModal").modal("show");
         $("#judul").html("Silahkan Merubah Data");
         $("#tombolForm").html("Ubah Data");

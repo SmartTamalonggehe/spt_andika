@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CRUD\AkunController;
 use App\Http\Controllers\CRUD\GajiController;
 use App\Http\Controllers\CRUD\KwitansiController;
 use App\Http\Controllers\CRUD\KwitansiDetailController;
@@ -20,5 +21,6 @@ Route::prefix('crud')->group(function () {
         'pengikut' => PengikutController::class,
         'kwitansi' => KwitansiController::class,
         'kwitansiDetail' => KwitansiDetailController::class,
+        'akun' => AkunController::class,
     ]);
 });

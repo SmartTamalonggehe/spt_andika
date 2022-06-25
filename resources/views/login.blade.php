@@ -8,7 +8,6 @@
             top: 8px;
             cursor: pointer;
         }
-
     </style>
 @endsection
 @section('content')
@@ -90,13 +89,14 @@
             const togglePassword = document.querySelector('#togglePassword');
             const password = document.querySelector('#id_password');
 
-            togglePassword.addEventListener('click', function(e) {
-                // toggle the type attribute
+            const my_position = document.querySelector('.my-position');
+            my_position.addEventListener('click', function(e) {
+                console.log('click');
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
                 // toggle the eye slash icon
-                this.classList.toggle('ri-eye-off-line');
-            });
+                togglePassword.classList.toggle('ri-eye-off-line');
+            })
         </script>
     @endsection
 

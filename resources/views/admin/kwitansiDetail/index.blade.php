@@ -25,7 +25,7 @@ $folder = 'kwitansiDetail';
 @endsection
 
 @section('btn_tambah')
-    @hasrole('admin')
+    @hasrole('keuangan')
         <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
     @endhasrole
 @endsection
@@ -46,7 +46,7 @@ $folder = 'kwitansiDetail';
                     <th>Uraian</th>
                     <th>Lama</th>
                     <th>Jumlah</th>
-                    @hasrole('admin')
+                    @hasrole('keuangan')
                         <th>Aksi</th>
                     @endhasrole
                 </tr>
@@ -100,7 +100,7 @@ $folder = 'kwitansiDetail';
                 }
             ]
             const role = document.getElementById('role').innerHTML
-            if (role == 'admin') {
+            if (role == 'keuangan') {
                 columns.push({
                     data: 'action',
                     orderable: false,

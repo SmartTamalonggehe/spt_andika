@@ -225,18 +225,6 @@ module.exports = {
   \**************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 var tools = __webpack_require__(/*! ./tools */ "./resources/js/my_crud/tools.js");
 
 function dataForm(data) {
@@ -366,34 +354,18 @@ function dataForm(data) {
     $(".tampilModal").modal("show");
     $("#judul").html("Silahkan Merubah Data");
     $("#tombolForm").html("Ubah Data");
-  } // Jika route nilai alternatif
+  } // Jika route akun
 
 
-  if (tools.route === "nilaiAlternatif") {
-    (function () {
-      var gpAlternatif = data.reduce(function (r, a) {
-        r[a.alternatif_id] = [].concat(_toConsumableArray(r[a.alternatif_id] || []), [a]);
-        return r;
-      }, {}); // cari select alternatif
-
-      var selectAlt = document.getElementById("alternatif_id");
-      var isiId = [];
-
-      for (var i in gpAlternatif) {
-        var subKrit = gpAlternatif[i];
-        subKrit.forEach(function (el) {
-          isiId.push(el.id);
-          var isiOption = "<option value=\"".concat(el.alternatif.id, "\" selected>").concat(el.alternatif.nm_alternatif, "</option>");
-          selectAlt.innerHTML = isiOption;
-          $("#".concat(el.sub_kriteria.kriteria_id, "sub_kriteria_id")).val(el.sub_kriteria_id).trigger("change");
-        });
-      }
-
-      $("#id").val(isiId);
-      $(".tampilModal").modal("show");
-      $("#judul").html("Silahkan Merubah Data");
-      $("#tombolForm").html("Ubah Data");
-    })();
+  if (tools.route === "akun") {
+    $("#id").val(data.id);
+    $("#pegawai-id").val(data.pegawai_id).trigger("change");
+    $("#password").val(data.password_show);
+    $("#password_confirmation").val(data.password_show);
+    $("#email").val(data.email);
+    $(".tampilModal").modal("show");
+    $("#judul").html("Silahkan Merubah Data");
+    $("#tombolForm").html("Ubah Data");
   }
 }
 

@@ -11,7 +11,7 @@ class CekLogin extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->hasRole(['admin', 'ketua'])) {
+        if ($user->hasRole(['kepegawaian', 'keuangan', 'pegawai', 'ketua'])) {
             return redirect()->route('admin.dashboard');
         }
     }

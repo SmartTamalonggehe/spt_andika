@@ -8,12 +8,7 @@
                 <img src="{{ asset('assets/images/logo/papua-1.png') }}" alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
-                @hasrole('admin')
-                    <h4 class="font-size-16 mb-1">Admin</h4>
-                @else
-                    <h4 class="font-size-16 mb-1">Ketua</h4>
-                @endhasrole
-
+                <h4 class="font-size-16 mb-1">{{ Auth::user()->name }}</h4>
             </div>
         </div>
 
@@ -36,34 +31,44 @@
                         <span>Master Data</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin.pegawai') }}">Pegawai</a></li>
-                        <li><a href="{{ route('admin.gaji') }}">Gaji</a></li>
+                        @hasanyrole('ketua|kepegawaian')
+                            <li><a href="{{ route('admin.pegawai') }}">Pegawai</a></li>
+                        @endhasanyrole
+                        @hasrole('kepegawaian')
+                            <li><a href="{{ route('admin.akun') }}">Akun</a></li>
+                        @endhasrole
+                        @hasanyrole('keuangan|ketua')
+                            <li><a href="{{ route('admin.gaji') }}">Gaji</a></li>
+                        @endhasanyrole
                     </ul>
                 </li>
 
-                <li class="@yield('surat')">
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-pencil-ruler-2-line"></i>
-                        <span>Surat</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin.surat', 'SPT') }}">SPT</a></li>
-                        <li><a href="{{ route('admin.surat', 'SPPD') }}">SPPD</a></li>
-                    </ul>
-                </li>
+                @hasanyrole('ketua|kepegawaian')
+                    <li class="@yield('surat')">
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-pencil-ruler-2-line"></i>
+                            <span>Surat</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('admin.surat', 'SPT') }}">SPT</a></li>
+                            <li><a href="{{ route('admin.surat', 'SPPD') }}">SPPD</a></li>
+                        </ul>
+                    </li>
+                @endhasanyrole
 
-                <li class="@yield('kwitansi')">
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-vip-crown-2-line"></i>
-                        <span>Kwitansi</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin.kwitansi') }}">Rincian Kwitansi</a></li>
-                    </ul>
-                </li>
+                @hasanyrole('keuangan|ketua')
+                    <li class="@yield('kwitansi')">
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-vip-crown-2-line"></i>
+                            <span>Kwitansi</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('admin.kwitansi') }}">Rincian Kwitansi</a></li>
+                        </ul>
+                    </li>
+                @endhasanyrole
             </ul>
         </div>
         <!-- Sidebar -->
-
     </div>
 </div>

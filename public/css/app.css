@@ -4721,6 +4721,14 @@
     margin-top: -2px;
 }
 
+.toogle-password {
+    position: absolute;
+    top: 38px;
+    right: 20px;
+    z-index: 1;
+    cursor: pointer;
+}
+
 body.lb-disable-scrolling {
     overflow: hidden;
 }

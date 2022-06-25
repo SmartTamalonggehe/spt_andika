@@ -77,6 +77,7 @@
 
     {{-- script --}}
     @include('layouts.script')
+    <script src="{{ mix('js/components.js') }}" defer></script>
 </body>
 
 </html>

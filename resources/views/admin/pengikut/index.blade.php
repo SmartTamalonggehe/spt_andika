@@ -24,7 +24,7 @@ $folder = 'pengikut';
 @endsection
 
 @section('btn_tambah')
-    @hasrole('admin')
+    @hasrole('kepegawaian')
         <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
     @endhasrole
 @endsection
@@ -44,7 +44,7 @@ $folder = 'pengikut';
                     <th>No</th>
                     <th>NIP</th>
                     <th>Nama Pegawai</th>
-                    @hasrole('admin')
+                    @hasrole('kepegawaian')
                         <th>Aksi</th>
                     @endhasrole
                 </tr>
@@ -85,7 +85,7 @@ $folder = 'pengikut';
                 }
             ];
             const role = document.getElementById('role').innerHTML
-            if (role == 'admin') {
+            if (role == 'kepegawaian') {
                 columns.push({
                     data: 'action',
                     orderable: false,

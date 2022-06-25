@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'kepegawaian@mail.com',
             'password' => Hash::make('kepegawaian123'),
         ]);
-        $kepegawaian->assignRole('Kepegawaian');
+        $kepegawaian->assignRole('kepegawaian');
 
         $keuangan = User::create([
             'name' => 'Keuangan',
@@ -30,12 +30,12 @@ class UserSeeder extends Seeder
         ]);
         $keuangan->assignRole('keuangan');
 
-        $pegawai = User::create([
-            'name' => 'pegawai',
-            'email' => 'pegawai@mail.com',
-            'password' => Hash::make('pegawai123'),
-        ]);
-        $pegawai->assignRole('pegawai');
+        // $pegawai = User::create([
+        //     'name' => 'pegawai',
+        //     'email' => 'pegawai@mail.com',
+        //     'password' => Hash::make('pegawai123'),
+        // ]);
+        // $pegawai->assignRole('pegawai');
 
         $ketua = User::create([
             'name' => 'Ketua',

@@ -47,4 +47,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/kwitansiDetail/{id}', function ($id, Request $request) {
         return view('admin.kwitansiDetail.index', compact('id', 'request'));
     })->name("$nm.kwitansiDetail");
+
+    Route::get('akun', function () {
+        return view('admin.akun.index');
+    })->name("$nm.akun");
 });

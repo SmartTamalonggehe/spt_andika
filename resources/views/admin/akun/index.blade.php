@@ -1,11 +1,8 @@
 @extends('admin.layouts.default')
-@section('title', 'Halaman Tunjangan')
-
-@section('gaji', 'mm-active')
+@section('title', 'Halaman Pegawai')
 
 @php
-use Carbon\Carbon;
-$folder = 'tunjangan';
+$folder = 'akun';
 @endphp
 
 @section('css')
@@ -20,36 +17,31 @@ $folder = 'tunjangan';
     <!-- Responsive datatable examples -->
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
         rel="stylesheet" type="text/css" />
-    {{-- Date --}}
-    <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('btn_tambah')
-    @hasrole('keuangan')
+    @hasrole('kepegawaian')
         <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
     @endhasrole
 @endsection
 
 @section('content')
     <div id="route" style="display: none"><?= $folder ?></div>
-    <div id="gaji_id" style="display: none">{{ $gaji->id }}</div>
     <div id="role" style="display: none">{{ auth()->user()->roles[0]->name }}</div>
     <div class="col-12">
-        <h5 class="mb-sm-0 mb-md-3">{{ $gaji->pegawai->NIP }} - {{ $gaji->pegawai->nama }}</h5>
         <p>
-            Silahkan mengubah, menghapus, atau menambahkan data tunjangan gaji tanggal
-            {{ Carbon::createFromFormat('Y-m-d', $gaji->tgl_gaji)->format('d M Y') }}.
+            Silahkan mengubah, menghapus, atau menambahkan data pegawai.
         </p>
         <table id="my_table" class="table dt-responsive nowrap"
             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Tunjangan</th>
-                    <th>Jml. Tunjangan</th>
-                    @hasrole('keuangan')
-                        <th>Aksi</th>
-                    @endhasrole
+                    <th>NIP</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
         </table>
@@ -66,24 +58,8 @@ $folder = 'tunjangan';
     {{-- Form Validation --}}
     <script src="{{ asset('assets/libs/parsleyjs/parsley.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/form-validation.init.js') }}"></script>
-    {{-- Date --}}
-    <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/form-advanced.init.js') }}"></script>
-    {{-- input mask --}}
-    <script src="{{ asset('assets/libs/inputmask/jquery.inputmask.bundle.min.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
-            $('.currency').inputmask({
-                alias: "currency",
-                prefix: 'Rp. ',
-                digits: 0,
-                digitsOptional: false,
-            });
-        });
-    </script>
-    <script>
-        const gaji_id = document.getElementById('gaji_id').innerHTML;
         $(document).ready(function() {
             let columns = [{
                     data: 'DT_RowIndex',
@@ -91,20 +67,24 @@ $folder = 'tunjangan';
                     searchable: false
                 },
                 {
-                    data: 'nm_tunjangan',
+                    data: 'pegawai.NIP',
                 },
                 {
-                    data: 'jml_tunjangan',
-                }
-            ]
-            const role = document.getElementById('role').innerHTML
-            if (role == 'keuangan') {
-                columns.push({
+                    data: 'pegawai.nama',
+                },
+                {
+                    data: 'email',
+                },
+                {
+                    data: 'password_show',
+                },
+                {
                     data: 'action',
                     orderable: false,
                     searchable: false
-                })
-            }
+                }
+            ]
+
             $("#my_table").DataTable({
                 scrollX: true,
                 language: {
@@ -121,7 +101,7 @@ $folder = 'tunjangan';
                 order: [
                     [1, 'asc']
                 ],
-                ajax: `/crud/${route.textContent}/${gaji_id}/`,
+                ajax: `/crud/${route.textContent}`,
                 columns
             });
         });
