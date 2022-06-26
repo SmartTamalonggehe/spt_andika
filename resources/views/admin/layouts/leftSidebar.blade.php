@@ -8,7 +8,12 @@
                 <img src="{{ asset('assets/images/logo/papua-1.png') }}" alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
-                <h4 class="font-size-16 mb-1">{{ Auth::user()->name }}</h4>
+                @hasrole('ketua')
+                    <h4 class="font-size-16 mb-1">Kepala Dinas</h4>
+                @else
+                    <h4 class="font-size-16 mb-1">{{ Auth::user()->name }}</h4>
+                @endhasrole
+
             </div>
         </div>
 
@@ -24,26 +29,27 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                @hasanyrole('ketua|kepegawaian|keuangan')
+                    <li class="@yield('gaji')">
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-profile-line"></i>
+                            <span>Master Data</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            @hasanyrole('ketua|kepegawaian')
+                                <li><a href="{{ route('admin.pegawai') }}">Pegawai</a></li>
+                            @endhasanyrole
+                            @hasrole('kepegawaian')
+                                <li><a href="{{ route('admin.akun') }}">Akun</a></li>
+                            @endhasrole
+                            @hasanyrole('keuangan|ketua')
+                                <li><a href="{{ route('admin.gaji') }}">Gaji</a></li>
+                            @endhasanyrole
+                        </ul>
+                    </li>
+                @endhasanyrole
 
-                <li class="@yield('gaji')">
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-profile-line"></i>
-                        <span>Master Data</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        @hasanyrole('ketua|kepegawaian')
-                            <li><a href="{{ route('admin.pegawai') }}">Pegawai</a></li>
-                        @endhasanyrole
-                        @hasrole('kepegawaian')
-                            <li><a href="{{ route('admin.akun') }}">Akun</a></li>
-                        @endhasrole
-                        @hasanyrole('keuangan|ketua')
-                            <li><a href="{{ route('admin.gaji') }}">Gaji</a></li>
-                        @endhasanyrole
-                    </ul>
-                </li>
-
-                @hasanyrole('ketua|kepegawaian')
+                @hasanyrole('ketua|kepegawaian|pegawai')
                     <li class="@yield('surat')">
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="ri-pencil-ruler-2-line"></i>

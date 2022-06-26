@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusToSurat extends Migration
+class CreateBuktiPerjalananTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddStatusToSurat extends Migration
      */
     public function up()
     {
-        Schema::table('surat', function (Blueprint $table) {
-            $table->string('status', 10)->default('Diproses');
+        Schema::create('bukti_perjalanan', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +26,6 @@ class AddStatusToSurat extends Migration
      */
     public function down()
     {
-        Schema::table('surat', function (Blueprint $table) {
-            $table->dropColumn('status');
-        });
+        Schema::dropIfExists('bukti_perjalanan');
     }
 }

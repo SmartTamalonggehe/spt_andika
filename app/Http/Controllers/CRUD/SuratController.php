@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Surat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -66,7 +67,12 @@ class SuratController extends Controller
         $data = Surat::where('jenis_surat', $request->id)
             ->whereDate('tgl_surat', '>=', $tgl_awal)
             ->whereDate('tgl_surat', '<=', $tgl_akhir)
-            ->with('pegawai')->get();
+            ->with('pegawai');
+        if (Auth::user()->name == 'Pegawai') {
+            $data = $data->where('status', 'Diterima')->where('pegawai_id', Auth::user()->pegawai_id)->get();
+        } else {
+            $data = $data->get();
+        }
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('lama', function ($data) {
@@ -80,6 +86,25 @@ class SuratController extends Controller
                 'pengikut',
                 function ($data) {
                     return '<a href="/admin/pengikut/' . $data->id . '" class="btn btn-secondary btn-sm">Lihat</a>';
+                }
+            )
+            ->editColumn(
+                'status',
+                function ($data) {
+                    $attr = "";
+                    if (Auth::user()->name == 'Ketua') {
+                        $attr = 'btn-ubah-status';
+                    }
+
+                    if ($data->status == 'Diproses') {
+                        return '<span role="button" class="badge bg-warning ' . $attr . '" data-id="' . $data->id . '">' . $data->status . '</span>';
+                    } else if ($data->status == 'Disetujui') {
+                        return '<span role="button" class="badge badge-success ' . $attr . '" data-id="' . $data->id . '">' . $data->status . '</span>';
+                    } else if ($data->status == 'Ditolak') {
+                        return '<span role="button" class="badge bg-danger ' . $attr . '" data-id="' . $data->id . '">' . $data->status . '</span>';
+                    } else {
+                        return '<span role="button" class="badge bg-primary ' . $attr . '" data-id="' . $data->id . '">' . $data->status . '</span>';
+                    }
                 }
             )
             ->addColumn(
@@ -103,7 +128,7 @@ class SuratController extends Controller
                     return $btn;
                 }
             )
-            ->rawColumns(['pengikut', 'action'])
+            ->rawColumns(['pengikut', 'action', 'status'])
             ->make(true);
     }
 
@@ -174,19 +199,36 @@ class SuratController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $surat = Surat::findOrFail($id);
         $data = $request->all();
+        $data['status'] = 'Diproses';
+
+        $pesan = [
+            'judul' => 'Berhasil',
+            'pesan' => 'Data Telah Diubah',
+            'type' => 'success'
+        ];
+        if (auth()->user()->roles[0]->name == 'ketua') {
+            $status = $surat->status;
+            if ($status !== 'Diterima') {
+                $data['status'] = 'Diterima';
+            } else {
+                $data['status'] = 'Diproses';
+            }
+            $surat->update([
+                'status' => $data['status']
+            ]);
+            return response()->json($pesan);
+        };
+
         $data['tgl_surat'] = Carbon::parse($request->tgl_surat)->format('Y-m-d');
         $validate = $this->spartaValidation($data);
         if ($validate) {
             return $validate;
         }
 
-        Surat::findOrFail($id)->update($data);
-        $pesan = [
-            'judul' => 'Berhasil',
-            'pesan' => 'Data Telah Diubah',
-            'type' => 'success'
-        ];
+        $surat->update($data);
+
         return response()->json($pesan);
     }
 

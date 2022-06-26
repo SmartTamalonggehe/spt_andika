@@ -73,6 +73,7 @@ $folder = 'surat';
                     <th>Beban anggaran</th>
                     <th>Mata anggaran</th>
                     <th>Keterangan</th>
+                    <th>Status</th>
                     <th>Pengikut</th>
                     <th>Aksi</th>
                 </tr>
@@ -163,6 +164,9 @@ $folder = 'surat';
                     },
                     {
                         data: 'keterangan',
+                    },
+                    {
+                        data: 'status',
                     },
                     {
                         data: 'pengikut',
