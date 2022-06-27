@@ -2108,8 +2108,13 @@ $("body").on("click", ".btnHapus", function (e) {
 /*!****************************************!*\
   !*** ./resources/js/my_crud/tambah.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 var tools = __webpack_require__(/*! ./tools */ "./resources/js/my_crud/tools.js");
 
 toastr.options = {
@@ -2129,6 +2134,7 @@ toastr.options = {
   showMethod: "fadeIn",
   hideMethod: "fadeOut"
 };
+var url;
 
 function tampilForm() {
   document.getElementById("judul_form").innerText = "From Tambah Data";
@@ -2150,6 +2156,7 @@ if (btnTambah) {
     $("#id").val("");
     $(".inputReset").val("");
     $(".selectReset").val("").trigger("change");
+    removeImages();
   });
 }
 
@@ -2158,7 +2165,6 @@ function formBiasa() {
     e.preventDefault();
     var id = $("#id").val();
     var dataKu = $("#formKu").serialize();
-    var url;
     var method;
 
     if (tools.save_method == "add") {
@@ -2217,15 +2223,15 @@ function formGambar() {
       cache: false,
       processData: false,
       success: function success(response) {
+        // return console.log(response);
         toastr[response.type](response.pesan, response.judul);
 
         if (response.type === "error") {
           return 0;
         }
 
-        $("#formKu").trigger("reset");
         $(".selectReset").val("").trigger("change");
-        resetPicture();
+        removeImages();
         var oTable = $("#my_table").dataTable();
         oTable.fnDraw(false);
 
@@ -2240,17 +2246,44 @@ function formGambar() {
   });
 }
 
-var resetPicture = function resetPicture() {
-  $(".custom-file-container__image-preview").attr("style", "color: aqua");
-  $(".custom-file-container__custom-file__custom-file-control").html("Choose file...\n        <span class=\"custom-file-container__custom-file__custom-file-control__button\"> Browse </span>");
+var removeImages = function removeImages() {
+  var foto = document.getElementById("foto");
+  var fotoPreview = document.querySelector(".fotoPreview");
+
+  if (fotoPreview) {
+    fotoPreview.style.transition = "all 0.3s ease-in-out";
+    fotoPreview.style.opacity = "0"; // remove image
+
+    setTimeout(function () {
+      fotoPreview.style.backgroundImage = "";
+      fotoPreview.style.display = "none";
+      foto.value = ""; // delete fotoPreview
+
+      fotoPreview.remove();
+    }, 100);
+  }
+
+  var buttonDelete = document.querySelector(".remove-image");
+
+  if (buttonDelete) {
+    buttonDelete.remove();
+  }
+
+  var foto_lama = document.querySelector(".foto_lama");
+
+  if (foto_lama) {
+    foto_lama.remove();
+  }
 }; // Script Tambah & Ubah
 
 
-if (tools.route === "nilai" || tools.route === "kartumhs") {
+if (tools.route === "bukti-perjalanan" || tools.route === "kartumhs") {
   formGambar();
 } else {
   formBiasa();
 }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (removeImages);
 
 /***/ }),
 
@@ -2319,9 +2352,14 @@ $("body").on("click", ".btn-ubah-status", function (e) {
 /*!**************************************!*\
   !*** ./resources/js/my_crud/ubah.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _tambah__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tambah */ "./resources/js/my_crud/tambah.js");
 var tools = __webpack_require__(/*! ./tools */ "./resources/js/my_crud/tools.js");
+
+
 
 function dataForm(data) {
   // Jika route pegawai
@@ -2459,6 +2497,25 @@ function dataForm(data) {
     $("#password").val(data.password_show);
     $("#password_confirmation").val(data.password_show);
     $("#email").val(data.email);
+    $(".tampilModal").modal("show");
+    $("#judul").html("Silahkan Merubah Data");
+    $("#tombolForm").html("Ubah Data");
+  } // Jika route bukti-perjalanan
+
+
+  if (tools.route === "bukti-perjalanan") {
+    $("#id").val(data.id);
+    $("#surat_id").val(data.surat_id);
+    (0,_tambah__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    $(".foto_lama").remove(); // get elemnt id container_foto_lama
+
+    var container_foto_lama = document.getElementById("container_foto_lama"); // create div .foto_lama
+
+    var foto_lama = document.createElement("div");
+    foto_lama.classList.add("foto_lama"); // add foto_lama to container_foto_lama
+
+    container_foto_lama.appendChild(foto_lama);
+    $(".foto_lama").html("<h6 class=\"mt-3\">Gambar Lama</h6> <img src=\"".concat(data.path_file, "\" width=\"100%\" height=\"150px\">"));
     $(".tampilModal").modal("show");
     $("#judul").html("Silahkan Merubah Data");
     $("#tombolForm").html("Ubah Data");

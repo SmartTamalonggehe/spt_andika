@@ -51,4 +51,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('akun', function () {
         return view('admin.akun.index');
     })->name("$nm.akun");
+
+    Route::get('/bukti-perjalanan/{id}', function ($id) {
+        return view('admin.bukti-perjalanan.index', compact('id'));
+    })->name("$nm.buktiPerjalanan");
 });

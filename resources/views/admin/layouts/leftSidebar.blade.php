@@ -10,6 +10,9 @@
             <div class="mt-3">
                 @hasrole('ketua')
                     <h4 class="font-size-16 mb-1">Kepala Dinas</h4>
+                @endhasrole
+                @hasrole('pegawai')
+                    <h4 class="font-size-16 mb-1">{{ Auth::user()->pegawai->nama }}</h4>
                 @else
                     <h4 class="font-size-16 mb-1">{{ Auth::user()->name }}</h4>
                 @endhasrole

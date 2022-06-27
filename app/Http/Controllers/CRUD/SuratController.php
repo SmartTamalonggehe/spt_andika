@@ -116,13 +116,15 @@ class SuratController extends Controller
                     } else {
                         $link = "surat_sppd";
                     };
-                    $cetak = '<a href="/cetak/' . $link . '/' . $data->id . '" target="blank" class="btn btn-info btn-sm ms-1">Cetak</a>';
+                    $cetak = '<a href="/cetak/' . $link . '/' . $data->id . '" target="blank" class="btn btn-info btn-sm ms-1">Cetak</a>
+                    <a href="/admin/bukti-perjalanan/' . $data->id . '" class="btn btn-success btn-sm ms-1">Bukti</a>';
                     $btn = "";
                     if (auth()->user()->roles[0]->name == 'kepegawaian') {
                         $btn = '<button type="button" class="btn btn-warning btnUbah btn-sm" data-id="' . $data->id . '">Ubah</button>
                         <button type="button" data-id="' . $data->id . '" class="btn btn-danger btnHapus btn-sm">Delete</button>' . $cetak;
                     } else {
                         $btn = $cetak;
+                        // $btn += $bukti;
                     }
 
                     return $btn;

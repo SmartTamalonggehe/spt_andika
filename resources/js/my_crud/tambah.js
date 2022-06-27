@@ -17,6 +17,8 @@ toastr.options = {
     hideMethod: "fadeOut",
 };
 
+let url;
+
 function tampilForm() {
     document.getElementById("judul_form").innerText = "From Tambah Data";
     document.getElementById("tombolForm").innerText = "Simpan Data";
@@ -35,6 +37,7 @@ if (btnTambah) {
         $("#id").val("");
         $(".inputReset").val("");
         $(".selectReset").val("").trigger("change");
+        removeImages();
     });
 }
 
@@ -43,7 +46,6 @@ function formBiasa() {
         e.preventDefault();
         let id = $("#id").val();
         let dataKu = $("#formKu").serialize();
-        let url;
         let method;
         if (tools.save_method == "add") {
             url = `${tools.uri}`;
@@ -97,13 +99,13 @@ function formGambar() {
             cache: false,
             processData: false,
             success: function (response) {
+                // return console.log(response);
                 toastr[response.type](response.pesan, response.judul);
                 if (response.type === "error") {
                     return 0;
                 }
-                $("#formKu").trigger("reset");
                 $(".selectReset").val("").trigger("change");
-                resetPicture();
+                removeImages();
                 let oTable = $("#my_table").dataTable();
                 oTable.fnDraw(false);
                 if (tools.save_method == "Ubah") {
@@ -117,17 +119,37 @@ function formGambar() {
     });
 }
 
-const resetPicture = () => {
-    $(".custom-file-container__image-preview").attr("style", "color: aqua");
-    $(".custom-file-container__custom-file__custom-file-control").html(
-        `Choose file...
-        <span class="custom-file-container__custom-file__custom-file-control__button"> Browse </span>`
-    );
+const removeImages = () => {
+    const foto = document.getElementById("foto");
+    const fotoPreview = document.querySelector(".fotoPreview");
+    if (fotoPreview) {
+        fotoPreview.style.transition = "all 0.3s ease-in-out";
+        fotoPreview.style.opacity = "0";
+        // remove image
+        setTimeout(() => {
+            fotoPreview.style.backgroundImage = "";
+            fotoPreview.style.display = "none";
+            foto.value = "";
+            // delete fotoPreview
+            fotoPreview.remove();
+        }, 100);
+    }
+    const buttonDelete = document.querySelector(".remove-image");
+    if (buttonDelete) {
+        buttonDelete.remove();
+    }
+
+    const foto_lama = document.querySelector(".foto_lama");
+    if (foto_lama) {
+        foto_lama.remove();
+    }
 };
 
 // Script Tambah & Ubah
-if (tools.route === "nilai" || tools.route === "kartumhs") {
+if (tools.route === "bukti-perjalanan" || tools.route === "kartumhs") {
     formGambar();
 } else {
     formBiasa();
 }
+
+export default removeImages;

@@ -1,5 +1,7 @@
 const tools = require("./tools");
 
+import removeImages from "./tambah";
+
 function dataForm(data) {
     // Jika route pegawai
     if (tools.route === "pegawai") {
@@ -127,6 +129,30 @@ function dataForm(data) {
         $("#password").val(data.password_show);
         $("#password_confirmation").val(data.password_show);
         $("#email").val(data.email);
+        $(".tampilModal").modal("show");
+        $("#judul").html("Silahkan Merubah Data");
+        $("#tombolForm").html("Ubah Data");
+    }
+
+    // Jika route bukti-perjalanan
+    if (tools.route === "bukti-perjalanan") {
+        $("#id").val(data.id);
+        $("#surat_id").val(data.surat_id);
+        removeImages();
+        $(".foto_lama").remove();
+        // get elemnt id container_foto_lama
+        const container_foto_lama = document.getElementById(
+            "container_foto_lama"
+        );
+        // create div .foto_lama
+        const foto_lama = document.createElement("div");
+        foto_lama.classList.add("foto_lama");
+        // add foto_lama to container_foto_lama
+        container_foto_lama.appendChild(foto_lama);
+
+        $(".foto_lama").html(
+            `<h6 class="mt-3">Gambar Lama</h6> <img src="${data.path_file}" width="100%" height="150px">`
+        );
         $(".tampilModal").modal("show");
         $("#judul").html("Silahkan Merubah Data");
         $("#tombolForm").html("Ubah Data");

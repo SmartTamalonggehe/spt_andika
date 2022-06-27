@@ -41,14 +41,14 @@ $folder = 'surat';
                 <p>
                     Tampilkan data berdasarkan tanggal:
                 </p>
-                <div class="col-8">
+                <div class="col-12">
                     <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M yyyy"
                         data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
                         <input type="text" class="form-control" name="tgl_awal" placeholder="Tanggal Awal" />
                         <input type="text" class="form-control" name="tgl_akhir" placeholder="Tanggal Akhir" />
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 mt-4">
                     <button type="submit" class="btn btn-secondary">Tampilkan</button>
                 </div>
             </div>

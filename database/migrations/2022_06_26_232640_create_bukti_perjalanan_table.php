@@ -15,6 +15,10 @@ class CreateBuktiPerjalananTable extends Migration
     {
         Schema::create('bukti_perjalanan', function (Blueprint $table) {
             $table->id();
+            // foreign key surat_id
+            $table->foreignId('surat_id')->constrained('surat')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('nama_file');
+            $table->string('path_file');
             $table->timestamps();
         });
     }

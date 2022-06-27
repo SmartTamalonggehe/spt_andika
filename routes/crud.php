@@ -1,15 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CRUD\AkunController;
 use App\Http\Controllers\CRUD\GajiController;
-use App\Http\Controllers\CRUD\KwitansiController;
-use App\Http\Controllers\CRUD\KwitansiDetailController;
+use App\Http\Controllers\CRUD\SuratController;
 use App\Http\Controllers\CRUD\PegawaiController;
+use App\Http\Controllers\CRUD\KwitansiController;
 use App\Http\Controllers\CRUD\PengikutController;
 use App\Http\Controllers\CRUD\PotonganController;
-use App\Http\Controllers\CRUD\SuratController;
 use App\Http\Controllers\CRUD\TunjanganController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CRUD\KwitansiDetailController;
+use App\Http\Controllers\CRUD\BuktiPerjalananController;
 
 Route::prefix('crud')->group(function () {
     Route::resources([
@@ -22,5 +23,6 @@ Route::prefix('crud')->group(function () {
         'kwitansi' => KwitansiController::class,
         'kwitansiDetail' => KwitansiDetailController::class,
         'akun' => AkunController::class,
+        'bukti-perjalanan' => BuktiPerjalananController::class,
     ]);
 });
