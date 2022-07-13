@@ -116,7 +116,7 @@ class SuratController extends Controller
                     } else {
                         $link = "surat_sppd";
                     };
-                    $cetak = '<a href="/cetak/' . $link . '/' . $data->id . '" target="blank" class="btn btn-info btn-sm ms-1">Cetak</a>
+                    $cetak = '<a href="/cetak/' . $link . '/' . $data->id . '" class="btn btn-info btn-sm ms-1">Cetak</a>
                     <a href="/admin/bukti-perjalanan/' . $data->id . '" class="btn btn-success btn-sm ms-1">Bukti</a>';
                     $btn = "";
                     if (auth()->user()->roles[0]->name == 'kepegawaian') {
