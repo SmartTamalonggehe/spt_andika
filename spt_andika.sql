@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.28, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
 -- Host: localhost    Database: spt_andika
 -- ------------------------------------------------------
--- Server version	8.0.28
+-- Server version	8.0.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,35 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `bukti_perjalanan`
+--
+
+DROP TABLE IF EXISTS `bukti_perjalanan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bukti_perjalanan` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `surat_id` bigint unsigned NOT NULL,
+  `nama_file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path_file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bukti_perjalanan_surat_id_foreign` (`surat_id`),
+  CONSTRAINT `bukti_perjalanan_surat_id_foreign` FOREIGN KEY (`surat_id`) REFERENCES `surat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bukti_perjalanan`
+--
+
+LOCK TABLES `bukti_perjalanan` WRITE;
+/*!40000 ALTER TABLE `bukti_perjalanan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bukti_perjalanan` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `failed_jobs`
@@ -62,7 +91,7 @@ CREATE TABLE `gaji` (
   PRIMARY KEY (`id`),
   KEY `gaji_pegawai_id_foreign` (`pegawai_id`),
   CONSTRAINT `gaji_pegawai_id_foreign` FOREIGN KEY (`pegawai_id`) REFERENCES `pegawai` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +100,7 @@ CREATE TABLE `gaji` (
 
 LOCK TABLES `gaji` WRITE;
 /*!40000 ALTER TABLE `gaji` DISABLE KEYS */;
+INSERT INTO `gaji` VALUES (3,3,3339400,83,'2021-10-14','2022-07-10 15:54:53','2022-07-10 15:54:53'),(4,2,4066500,13,'2021-10-20','2022-07-10 15:54:53','2022-07-10 15:54:53'),(5,1,4238500,80,'2021-10-20','2022-07-10 15:54:53','2022-07-10 15:54:53'),(6,4,2374300,1,'2021-10-20','2022-07-10 15:54:53','2022-07-10 15:54:53'),(7,5,2526200,58,'2022-04-30','2022-07-10 15:54:53','2022-07-10 15:54:53');
 /*!40000 ALTER TABLE `gaji` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +127,7 @@ CREATE TABLE `kwitansi` (
   PRIMARY KEY (`id`),
   KEY `kwitansi_surat_id_foreign` (`surat_id`),
   CONSTRAINT `kwitansi_surat_id_foreign` FOREIGN KEY (`surat_id`) REFERENCES `surat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,6 +136,7 @@ CREATE TABLE `kwitansi` (
 
 LOCK TABLES `kwitansi` WRITE;
 /*!40000 ALTER TABLE `kwitansi` DISABLE KEYS */;
+INSERT INTO `kwitansi` VALUES (3,6,'5.1.02.04.01.0001','2021-10-29',20000000,'bendahara pengeluaran','2021-11-08',20000000,5297400,5375000,'2022-07-10 15:54:53','2022-07-10 15:54:53');
 /*!40000 ALTER TABLE `kwitansi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +158,7 @@ CREATE TABLE `kwitansi_detail` (
   PRIMARY KEY (`id`),
   KEY `kwitansi_detail_kwitansi_id_foreign` (`kwitansi_id`),
   CONSTRAINT `kwitansi_detail_kwitansi_id_foreign` FOREIGN KEY (`kwitansi_id`) REFERENCES `kwitansi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,6 +167,7 @@ CREATE TABLE `kwitansi_detail` (
 
 LOCK TABLES `kwitansi_detail` WRITE;
 /*!40000 ALTER TABLE `kwitansi_detail` DISABLE KEYS */;
+INSERT INTO `kwitansi_detail` VALUES (6,3,'tramsport lokal/darat',3,500000,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(7,3,'penginapan',1,888000,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(8,3,'uang harian/saku',3,800000,'2022-07-10 15:54:54','2022-07-10 15:54:54');
 /*!40000 ALTER TABLE `kwitansi_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +183,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +192,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2022_03_12_083110_create_pegawai_table',1),(6,'2022_03_12_083144_create_gaji_table',1),(7,'2022_03_12_083157_create_tunjangan_table',1),(8,'2022_03_12_083214_create_potongan_table',1),(9,'2022_03_12_083240_create_surat_table',1),(10,'2022_03_12_083255_create_kwitansi_table',1),(11,'2022_03_12_083307_create_kwitansi_detail_table',1),(12,'2022_03_12_090510_create_pengikut_table',1),(13,'2022_03_13_121109_create_permission_tables',1);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2022_03_12_083110_create_pegawai_table',1),(6,'2022_03_12_083144_create_gaji_table',1),(7,'2022_03_12_083157_create_tunjangan_table',1),(8,'2022_03_12_083214_create_potongan_table',1),(9,'2022_03_12_083240_create_surat_table',1),(10,'2022_03_12_083255_create_kwitansi_table',1),(11,'2022_03_12_083307_create_kwitansi_detail_table',1),(12,'2022_03_12_090510_create_pengikut_table',1),(13,'2022_03_13_121109_create_permission_tables',1),(14,'2022_06_25_122334_add_status_to_surat',1),(15,'2022_06_25_122717_add_pegawai_id_to_users',1),(16,'2022_06_25_230026_add_password_show_to_users',1),(17,'2022_06_26_232640_create_bukti_perjalanan_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +245,7 @@ CREATE TABLE `model_has_roles` (
 
 LOCK TABLES `model_has_roles` WRITE;
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
-INSERT INTO `model_has_roles` VALUES (1,'App\\Models\\User',1),(2,'App\\Models\\User',2);
+INSERT INTO `model_has_roles` VALUES (1,'App\\Models\\User',1),(2,'App\\Models\\User',2),(4,'App\\Models\\User',3);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,7 +294,7 @@ CREATE TABLE `pegawai` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,6 +303,7 @@ CREATE TABLE `pegawai` (
 
 LOCK TABLES `pegawai` WRITE;
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
+INSERT INTO `pegawai` VALUES (1,'197106162000121005','YUSUF YAMBE  YABDI ST MT','olahraga','keungan','PNS','IV/c','ESELON','dinas olahraga dan pemuda provinsi papua','II','2022-07-10 15:54:51','2022-07-10 15:54:51'),(2,'196908032001121005','EDWIN OLAF MONIM MM SE','olahraga','keuangan','PNS','IV/b','ESELON','dinas olahraga dan pemuda provinsi papua','III','2022-07-10 15:54:51','2022-07-10 15:54:51'),(3,'196511021985032005','IRENE KARMA','olahraga','keuangan','kosong','II/c','staff','dinas olahraga dan pemuda provinsi papua','0','2022-07-10 15:54:51','2022-07-10 15:54:51'),(4,'197609092014032001','BEATRIX MONIM','olahraga','keuangan','PENGATUR MUDA','II/b','JFU','dinas olahraga dan pemuda provinsi papua','0','2022-07-10 15:54:51','2022-07-10 15:54:51'),(5,'198208022010042002','MONIKA INDER NDIKEN','olahraga','keuangan','PENGATUR','II/c','STAFF','dinas olahraga dan pemuda provinsi papua','0','2022-07-10 15:54:51','2022-07-10 15:54:51');
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +325,7 @@ CREATE TABLE `pengikut` (
   KEY `pengikut_pegawai_id_foreign` (`pegawai_id`),
   CONSTRAINT `pengikut_pegawai_id_foreign` FOREIGN KEY (`pegawai_id`) REFERENCES `pegawai` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pengikut_surat_id_foreign` FOREIGN KEY (`surat_id`) REFERENCES `surat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,6 +334,7 @@ CREATE TABLE `pengikut` (
 
 LOCK TABLES `pengikut` WRITE;
 /*!40000 ALTER TABLE `pengikut` DISABLE KEYS */;
+INSERT INTO `pengikut` VALUES (1,6,4,'2022-07-10 15:54:52','2022-07-10 15:54:52'),(2,7,3,'2022-07-10 15:54:52','2022-07-10 15:54:52');
 /*!40000 ALTER TABLE `pengikut` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,7 +414,7 @@ CREATE TABLE `potongan` (
   PRIMARY KEY (`id`),
   KEY `potongan_gaji_id_foreign` (`gaji_id`),
   CONSTRAINT `potongan_gaji_id_foreign` FOREIGN KEY (`gaji_id`) REFERENCES `gaji` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -389,6 +423,7 @@ CREATE TABLE `potongan` (
 
 LOCK TABLES `potongan` WRITE;
 /*!40000 ALTER TABLE `potongan` DISABLE KEYS */;
+INSERT INTO `potongan` VALUES (14,3,'Pot Pajak',0,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(15,3,'Pot BPJS Kes',156805,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(16,3,'Pot Taperum',0,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(17,3,'Pot jam kecelakaan kerja',8015,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(18,3,'Pot jam kematian',24044,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(20,3,'bulog/beras',323070,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(22,3,'Pot IWP 1%',39201,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(23,4,'Pot Pajak',11438,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(24,4,'Pot BPJS kes',207032,'2022-07-10 15:54:54','2022-07-10 15:54:54'),(25,4,'Pot tapera',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(26,4,'pot jkk',9760,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(27,4,'pot jaminan kematian',29279,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(28,4,'beras/bulog',421720,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(29,4,'pot IWP 1%',51758,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(30,5,'Pot Pajak',155796,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(31,5,'pot tapera',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(32,5,'pot bpjs kes',323276,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(33,5,'beras/bulog',421720,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(34,5,'Pot jam kecelakaan kerja',10172,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(35,5,'pot jam kematian',30517,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(36,5,'pot IWP 1%',80819,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(38,6,'Pot Pajak',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(39,6,'pot bpjs kes',113600,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(40,6,'Pot jam kecelakaan kerja',6384,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(41,6,'beras/bulog',107690,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(42,6,'pot jam kematian',19512,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(43,6,'pot tapera',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(44,6,'pot IWP 1%',28400,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(45,7,'Pot Pajak',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(46,7,'pot bpjs kes',108248,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(47,7,'Pot jam kecelakaan kerja',6063,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(48,7,'pot jam kematian',18189,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(49,7,'pot tapera',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(50,7,'beras/ bulog',107690,'2022-07-10 15:54:55','2022-07-10 15:54:55');
 /*!40000 ALTER TABLE `potongan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -433,7 +468,7 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -442,7 +477,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'admin','web','2022-03-14 14:44:02','2022-03-14 14:44:02'),(2,'ketua','web','2022-03-14 14:44:02','2022-03-14 14:44:02');
+INSERT INTO `roles` VALUES (1,'kepegawaian','web','2022-07-10 15:54:49','2022-07-10 15:54:49'),(2,'keuangan','web','2022-07-10 15:54:49','2022-07-10 15:54:49'),(3,'pegawai','web','2022-07-10 15:54:49','2022-07-10 15:54:49'),(4,'ketua','web','2022-07-10 15:54:49','2022-07-10 15:54:49');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -472,10 +507,11 @@ CREATE TABLE `surat` (
   `keterangan` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `status` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Diproses',
   PRIMARY KEY (`id`),
   KEY `surat_pegawai_id_foreign` (`pegawai_id`),
   CONSTRAINT `surat_pegawai_id_foreign` FOREIGN KEY (`pegawai_id`) REFERENCES `pegawai` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -484,6 +520,7 @@ CREATE TABLE `surat` (
 
 LOCK TABLES `surat` WRITE;
 /*!40000 ALTER TABLE `surat` DISABLE KEYS */;
+INSERT INTO `surat` VALUES (6,3,'2021-10-21','094','SPT','DPA-SKPD Dinas Olahraga dan Pemuda Provinsi Papua Tahun Anggaran 2021','jayapura','dekai','inventarisasi data sarana prasarana dan kepemudaan di kabupaten yahukimo','pesawat',5,'1','6','DPA-SKPD Dinas Olahraga dan Pemuda Provinsi Papua Tahun 2021','0',NULL,'2022-07-10 15:54:52','2022-07-10 15:54:52','Diproses'),(7,5,'2022-03-21','094/ 2021','SPPD','kepala dinas olahraga dan pemuda provinsi papua','jayapura','serui','inventarisasi data sarana prasarana dan kepemudaan di kabupaten kepulauan yapen','pesawat udara',4,'kesempatan pertama','selesai tugas','DPA-SKPD Dinas Olahraga dan Pemuda Provinsi Papua Tahun 2021','5.1.02.04.01.0001','membawa perlengkapan seperlunya','2022-07-10 15:54:52','2022-07-10 15:54:52','Diproses');
 /*!40000 ALTER TABLE `surat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -504,7 +541,7 @@ CREATE TABLE `tunjangan` (
   PRIMARY KEY (`id`),
   KEY `tunjangan_gaji_id_foreign` (`gaji_id`),
   CONSTRAINT `tunjangan_gaji_id_foreign` FOREIGN KEY (`gaji_id`) REFERENCES `gaji` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -513,6 +550,7 @@ CREATE TABLE `tunjangan` (
 
 LOCK TABLES `tunjangan` WRITE;
 /*!40000 ALTER TABLE `tunjangan` DISABLE KEYS */;
+INSERT INTO `tunjangan` VALUES (32,3,'Tunj Anak',66788,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(33,3,'Tunj Eslon',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(34,3,'Tunj Fung Umum',180000,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(35,3,'Tunj Khusus Daerah',350000,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(36,3,'Tunj beras',323070,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(38,3,'Tunj BPJS',156805,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(39,3,'Tunj JKK',8015,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(40,3,'Tunj JK',24044,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(42,4,'Tunj suami/istri',406650,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(44,4,'Tunj anak',162660,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(45,4,'Tunj eslon',540000,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(46,4,'Tunj Fung Umum',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(47,4,'Tunj beras',421720,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(48,4,'Tunj pajak',11438,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(49,4,'Tunj BPJS kes',207032,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(50,4,'Tunj JKK',9760,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(51,4,'Tunj JK',292792,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(52,4,'Tunj jaminan pensiun',370865,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(53,4,'Tunj Khusus Daerah',550000,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(54,3,'tunj pensiun',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(55,5,'Tunj Suami/Istri',423850,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(56,5,'Tunj anak',169540,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(57,5,'tunj eslon',3250000,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(58,5,'Tunj Fung Umum',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(59,5,'Tunj beras',421720,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(61,5,'tunj BPJS',323276,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(62,5,'tunj jam kecelakaan kerja',10172,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(63,5,'tunj jam kematian',30517,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(64,5,'tunj jam pensiun',386551,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(65,5,'tunj pajak',155796,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(67,5,'Tunj Khusus Daerah',575000,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(68,6,'Tunj Suami/Istri',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(69,6,'tunj anak',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(70,6,'tunj ESLON',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(71,6,'Tunj Fung Umum',180000,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(72,6,'Tunj beras',107690,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(73,6,'tunj pajak',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(74,6,'tunj bpjs kes',113600,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(75,6,'tunj jam kecelakaan kerja',6348,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(76,6,'tunj jam kematian',19152,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(79,6,'tunj pensiun',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(80,7,'Tunj Suami/Istri',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(81,7,'Tunj anak',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(82,7,'tunj ESLON',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(83,7,'Tunj Fung Umum',180000,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(84,7,'Tunj beras',107690,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(85,7,'tunj  pajak',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(86,7,'tunj bpjs kes',108248,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(87,7,'tunj jam kecelakaan kerja',6063,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(88,7,'tunj jam kematian',18189,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(89,7,'tunj pensiun',0,'2022-07-10 15:54:55','2022-07-10 15:54:55'),(90,7,'Tunj Khusus Daerah',350000,'2022-07-10 15:54:55','2022-07-10 15:54:55');
 /*!40000 ALTER TABLE `tunjangan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,9 +570,11 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `pegawai_id` int unsigned DEFAULT NULL,
+  `password_show` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -543,7 +583,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','admin@mail.com',NULL,'$2y$10$8uBXB3yziAGUSNaa2TEHU.WOKJHIZHNkztqtveApbnQrImkR91EUe',NULL,'2022-03-14 14:44:02','2022-03-14 14:44:02'),(2,'Ketua','ketua@mail.com',NULL,'$2y$10$gOyxtB4dk83CBQ/OBgHXvOzRlmhyQazJKMISWeSFhvbeQXv4wmHva',NULL,'2022-03-14 14:44:02','2022-03-14 14:44:02');
+INSERT INTO `users` VALUES (1,'Kepegawaian','kepegawaian@mail.com',NULL,'$2y$10$xyYUA31QqnFZNensf7JLQu3nc4gXPx3puenMF2VlYISn3AnzBV7d.',NULL,'2022-07-10 15:54:49','2022-07-10 15:54:49',NULL,NULL),(2,'Keuangan','keuangan@mail.com',NULL,'$2y$10$dgO5d/UyLmfcFfEgx299N.p.MlGpwsy1KivYNr37JuZuv6GyjSOYG',NULL,'2022-07-10 15:54:49','2022-07-10 15:54:49',NULL,NULL),(3,'Ketua','ketua@mail.com',NULL,'$2y$10$L0DUwdmprSVxZ.fSUG/zS.hjPlo5guht3buH.nZL54VUKFmgTCXyq',NULL,'2022-07-10 15:54:49','2022-07-10 15:54:49',NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -556,4 +596,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-15  8:44:32
+-- Dump completed on 2022-07-11  9:56:18

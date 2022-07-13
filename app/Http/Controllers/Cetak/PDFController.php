@@ -18,7 +18,7 @@ class PDFController extends Controller
         $gaji = Gaji::with('potongan', 'tunjangan', 'pegawai')->find($id);
         // return view('admin.gaji.cetak', compact('gaji'));
         $pdf = PDF::loadView('admin.gaji.cetak', compact('gaji'));
-        return $pdf->stream("Laporan Gaji {$gaji->tgl_gaji}.pdf");
+        return $pdf->download("Laporan Gaji {$gaji->tgl_gaji}.pdf");
     }
     public function surat_spt($id)
     {
@@ -26,7 +26,7 @@ class PDFController extends Controller
         $pengikut = Pengikut::where('surat_id', $id)->with('pegawai')->get();
         // return view('admin.surat.cetak_spt', compact('surat', 'pengikut'));
         $pdf = PDF::loadView('admin.surat.cetak_spt', compact('surat', 'pengikut'));
-        return $pdf->stream("Surat {$surat->jenis_surat} {$surat->tgl_surat}.pdf");
+        return $pdf->download("Surat {$surat->jenis_surat} {$surat->tgl_surat}.pdf");
     }
     public function surat_sppd($id)
     {
@@ -34,7 +34,7 @@ class PDFController extends Controller
         $pengikut = Pengikut::where('surat_id', $id)->with('pegawai')->get();
         // return view('admin.surat.cetak_sppd', compact('surat', 'pengikut'));
         $pdf = PDF::loadView('admin.surat.cetak_sppd', compact('surat', 'pengikut'));
-        return $pdf->stream("Surat {$surat->jenis_surat} {$surat->tgl_surat}.pdf");
+        return $pdf->download("Surat {$surat->jenis_surat} {$surat->tgl_surat}.pdf");
     }
     public function kwitansi($id)
     {
@@ -42,6 +42,6 @@ class PDFController extends Controller
         $surat = Surat::with('pegawai')->find($kwitansi->surat_id);
         // return view('admin.kwitansi.cetak', compact('kwitansi', 'surat'));s
         $pdf = PDF::loadView('admin.kwitansi.cetak', compact('kwitansi', 'surat'));
-        return $pdf->stream("Kwitansi {$kwitansi->tgl_kwitansi}.pdf");
+        return $pdf->download("Kwitansi {$kwitansi->tgl_kwitansi}.pdf");
     }
 }
