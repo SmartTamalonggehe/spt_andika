@@ -2243,7 +2243,8 @@ if (toogle_password) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getDataPegawai": () => (/* binding */ getDataPegawai)
+/* harmony export */   "getDataPegawai": () => (/* binding */ getDataPegawai),
+/* harmony export */   "getDataSurat": () => (/* binding */ getDataSurat)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -2251,6 +2252,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var getDataPegawai = function getDataPegawai() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/pegawai").then(function (res) {
+    return res.data;
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+
+var getDataSurat = function getDataSurat() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/surat").then(function (res) {
     return res.data;
   })["catch"](function (err) {
     console.log(err);

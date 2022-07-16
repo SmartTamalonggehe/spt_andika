@@ -11,4 +11,15 @@ const getDataPegawai = () => {
         });
 };
 
-export { getDataPegawai };
+const getDataSurat = () => {
+    return axios
+        .get("/api/surat")
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+export { getDataPegawai, getDataSurat };

@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "animate.css": "^4.1.1",
+        "apexcharts": "^3.35.3",
         "file-upload-with-preview": "^4.2.0",
         "jquery": "^3.6.0",
         "lightbox2": "^2.11.3",

@@ -115,3 +115,7 @@
     z-index: 1;
     cursor: pointer;
 }
+
+#chart-surat text tspan {
+    color: red !important;
+}

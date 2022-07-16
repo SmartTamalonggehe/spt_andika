@@ -56,14 +56,6 @@ class SuratController extends Controller
             $tgl_akhir = Carbon::parse($request->tgl_akhir)->format('Y-m-d');
         }
 
-
-        // if (count($request->all()) > 0) {
-        //     $tgl_awal = Carbon::parse($request->tgl_awal)->format('Y-m-d');
-        //     $tgl_akhir = Carbon::parse($request->tgl_akhir)->format('Y-m-d');
-        // }
-
-        // return $tgl_awal;
-
         $data = Surat::where('jenis_surat', $request->id)
             ->whereDate('tgl_surat', '>=', $tgl_awal)
             ->whereDate('tgl_surat', '<=', $tgl_akhir)
