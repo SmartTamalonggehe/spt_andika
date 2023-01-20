@@ -32,7 +32,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                @hasanyrole('ketua|kepegawaian|keuangan')
+                @hasanyrole('ketua|kepegawaian')
                     <li class="@yield('gaji')">
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="ri-profile-line"></i>
@@ -45,9 +45,9 @@
                             @hasrole('kepegawaian')
                                 <li><a href="{{ route('admin.akun') }}">Akun</a></li>
                             @endhasrole
-                            @hasanyrole('keuangan|ketua')
+                            {{-- @hasanyrole('keuangan|ketua')
                                 <li><a href="{{ route('admin.gaji') }}">Gaji</a></li>
-                            @endhasanyrole
+                            @endhasanyrole --}}
                         </ul>
                     </li>
                 @endhasanyrole
