@@ -55,4 +55,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/bukti-perjalanan/{id}', function ($id) {
         return view('admin.bukti-perjalanan.index', compact('id'));
     })->name("$nm.buktiPerjalanan");
+
+    Route::get('/upload-dokumen', function () {
+        return view('admin.upload-dokumen.index');
+    })->name("$nm.uploadDokumen");
 });

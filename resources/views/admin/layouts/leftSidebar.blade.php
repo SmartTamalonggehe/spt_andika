@@ -65,6 +65,15 @@
                     </li>
                 @endhasanyrole
 
+                @hasanyrole('pegawai')
+                    <li>
+                        <a href="{{ route('admin.uploadDokumen') }}" class="waves-effect">
+                            <i class="ri-upload-line"></i>
+                            <span>Upload Dokumen</span>
+                        </a>
+                    </li>
+                @endhasanyrole
+
                 @hasanyrole('keuangan|ketua')
                     <li class="@yield('kwitansi')">
                         <a href="javascript: void(0);" class="has-arrow waves-effect">

@@ -146,7 +146,11 @@ const removeImages = () => {
 };
 
 // Script Tambah & Ubah
-if (tools.route === "bukti-perjalanan" || tools.route === "kartumhs") {
+if (
+    tools.route === "bukti-perjalanan" ||
+    tools.route === "kartumhs" ||
+    tools.route === "upload-dokumen"
+) {
     formGambar();
 } else {
     formBiasa();

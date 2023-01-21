@@ -11,6 +11,7 @@ use App\Http\Controllers\CRUD\PotonganController;
 use App\Http\Controllers\CRUD\TunjanganController;
 use App\Http\Controllers\CRUD\KwitansiDetailController;
 use App\Http\Controllers\CRUD\BuktiPerjalananController;
+use App\Http\Controllers\CRUD\UploadDokumenController;
 
 Route::prefix('crud')->group(function () {
     Route::resources([
@@ -24,5 +25,6 @@ Route::prefix('crud')->group(function () {
         'kwitansiDetail' => KwitansiDetailController::class,
         'akun' => AkunController::class,
         'bukti-perjalanan' => BuktiPerjalananController::class,
+        'upload-dokumen' => UploadDokumenController::class,
     ]);
 });

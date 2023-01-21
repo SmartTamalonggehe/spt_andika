@@ -2091,6 +2091,178 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/chart/perjalanan.js":
+/*!******************************************!*\
+  !*** ./resources/js/chart/perjalanan.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _getData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../getData */ "./resources/js/getData.js");
+/* harmony import */ var apexcharts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apexcharts */ "./node_modules/apexcharts/dist/apexcharts.common.js");
+/* harmony import */ var apexcharts__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(apexcharts__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var colors = ["#00ec00", "#ff0000", "#006dfc", "#0000ff", "#ffb100"];
+var container = document.getElementById("chart-perjalanan");
+
+var grafikSurat = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    var bulan,
+        tahun,
+        data,
+        dataSeries,
+        categories,
+        dataByMonth,
+        count,
+        arr,
+        options,
+        chart,
+        _args = arguments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            bulan = _args.length > 0 && _args[0] !== undefined ? _args[0] : "";
+            tahun = _args.length > 1 && _args[1] !== undefined ? _args[1] : "";
+            container.innerHTML = "";
+            _context.next = 5;
+            return (0,_getData__WEBPACK_IMPORTED_MODULE_1__.getDataSurat)();
+
+          case 5:
+            data = _context.sent;
+            dataSeries = [];
+            categories = []; // find data by month or year
+
+            dataByMonth = data.filter(function (item) {
+              return item.tgl_surat.includes(bulan) && item.tgl_surat.includes(tahun);
+            });
+            console.log("data perjalanan ByMonth", dataByMonth); // count data by tujuan
+
+            count = dataByMonth.reduce(function (acc, cur) {
+              if (acc[cur.tujuan]) {
+                acc[cur.tujuan]++;
+              } else {
+                acc[cur.tujuan] = 1;
+              }
+
+              return acc;
+            }, {}); // convert to array
+
+            arr = Object.keys(count).map(function (key) {
+              return {
+                name: key,
+                value: count[key]
+              };
+            });
+            console.log("arr", arr); // push to dataSeries
+
+            arr.forEach(function (item) {
+              dataSeries.push(item.value);
+              categories.push(item.name);
+            });
+            options = {
+              series: [{
+                name: "",
+                data: dataSeries
+              }],
+              chart: {
+                height: 400,
+                type: "bar",
+                events: {
+                  click: function click(chart, w, e) {}
+                }
+              },
+              colors: colors,
+              plotOptions: {
+                bar: {
+                  columnWidth: "45%",
+                  distributed: true
+                }
+              },
+              dataLabels: {
+                enabled: true,
+                style: {
+                  colors: ["#000000"]
+                }
+              },
+              legend: {
+                show: false
+              },
+              xaxis: {
+                categories: categories,
+                labels: {
+                  style: {
+                    colors: colors,
+                    fontSize: "12px"
+                  }
+                }
+              },
+              yaxis: {
+                title: {
+                  text: "Jumlah Surat"
+                },
+                labels: {
+                  style: {
+                    colors: "#fff",
+                    fontSize: "12px"
+                  }
+                }
+              },
+              fill: {
+                opacity: 1
+              },
+              tooltip: {
+                y: {
+                  formatter: function formatter(val) {
+                    return val + " surat";
+                  }
+                }
+              }
+            };
+            chart = new (apexcharts__WEBPACK_IMPORTED_MODULE_2___default())(container, options);
+            chart.render();
+
+          case 17:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function grafikSurat() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+grafikSurat();
+var bulan = document.getElementById("bulan");
+var tahun = document.getElementById("tahun");
+
+if (bulan) {
+  bulan.addEventListener("change", function () {
+    grafikSurat(bulan.value, tahun.value);
+  });
+}
+
+if (tahun) {
+  tahun.addEventListener("change", function () {
+    grafikSurat(bulan.value, tahun.value);
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/chart/surat.js":
 /*!*************************************!*\
   !*** ./resources/js/chart/surat.js ***!
@@ -3345,6 +3517,8 @@ var __webpack_exports__ = {};
   \*******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chart_surat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chart/surat */ "./resources/js/chart/surat.js");
+/* harmony import */ var _chart_perjalanan__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chart/perjalanan */ "./resources/js/chart/perjalanan.js");
+
 
 })();
 
