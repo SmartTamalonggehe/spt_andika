@@ -13,7 +13,14 @@
                      <div class="row">
                          <div class="col-12">
                              <div class="mb-3">
-                                 <label for="path_file">Bukti Perjalanan</label>
+                                 <label for="path_file">
+                                     @hasrole('pegawai')
+                                         Bukti Perjalanan
+                                     @endhasrole
+                                     @hasrole('kepegawaian')
+                                         Kwitansi Tiket
+                                     @endhasrole
+                                 </label>
                                  <input type="file" accept="image/*" id="foto" name="path_file">
                                  <div class="row">
                                      <div class="col-6">

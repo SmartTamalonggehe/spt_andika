@@ -4,7 +4,7 @@
 @section('surat', 'mm-active')
 
 @php
-$folder = 'bukti-perjalanan';
+    $folder = 'bukti-perjalanan';
 @endphp
 
 @section('css')
@@ -17,14 +17,14 @@ $folder = 'bukti-perjalanan';
         type="text/css" />
 
     <!-- Responsive datatable examples -->
-    <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
-        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css" />
     {{-- Date --}}
     <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('btn_tambah')
-    @hasrole('pegawai')
+    @hasrole('pegawai|kepegawaian')
         <button type="button" class="btn btn-outline-primary float-end" id="tambah">Tambah Data</button>
     @endhasrole
 @endsection
@@ -43,7 +43,7 @@ $folder = 'bukti-perjalanan';
                 <tr>
                     <th>No</th>
                     <th>Gambar</th>
-                    @hasrole('pegawai')
+                    @hasrole('pegawai|kepegawaian')
                         <th>Aksi</th>
                     @endhasrole
                 </tr>
@@ -82,7 +82,7 @@ $folder = 'bukti-perjalanan';
                 },
             ];
             const role = document.getElementById('role').innerHTML
-            if (role == 'pegawai') {
+            if (role == 'pegawai' || role == 'kepegawaian') {
                 columns.push({
                     data: 'action',
                     orderable: false,
